@@ -25,7 +25,7 @@ jobs:
     
     - name: 테스트 실행
       run: |
-        pytest test_first.py -v --html=report.html
+        pytest test_ci.py -v --html=report.html
     
     - name: 리포트 저장
       uses: actions/upload-artifact@v4
