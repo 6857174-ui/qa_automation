@@ -1,0 +1,33 @@
+name: QA 자동화 테스트
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 코드 가져오기
+      uses: actions/checkout@v3
+    
+    - name: 파이썬 설치
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.13'
+    
+    - name: 라이브러리 설치
+      run: |
+        pip install playwright pytest pytest-html
+        playwright install chromium
+    
+    - name: 테스트 실행
+      run: |
+        pytest test_first.py -v --html=report.html
+    
+    - name: 리포트 저장
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-report
+        path: report.html
